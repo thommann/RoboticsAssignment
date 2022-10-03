@@ -61,6 +61,7 @@ int main(int argc, char **argv)
 				break;
 			case ' ':
 				robot.stop()
+				break;
 		}
 		printf("%f %f %f\n", robot.getX(), robot.getY(), robot.getTh());
 		ArUtil::sleep(1000);
