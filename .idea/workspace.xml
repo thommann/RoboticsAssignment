@@ -9,10 +9,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1fde90fc-9772-4ba8-8a88-29617a5e19aa" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+    <list default="true" id="1fde90fc-9772-4ba8-8a88-29617a5e19aa" name="Changes" comment="demo printW">
       <change beforePath="$PROJECT_DIR$/demo.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/demo.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -60,8 +57,16 @@
       <option name="presentableId" value="Default" />
       <updated>1664767978211</updated>
       <workItem from="1664767980312" duration="1513000" />
-      <workItem from="1664769893240" duration="286000" />
+      <workItem from="1664769893240" duration="305000" />
     </task>
+    <task id="LOCAL-00001" summary="demo printW">
+      <created>1664770190116</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1664770190116</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -77,5 +82,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="demo printW" />
+    <option name="LAST_COMMIT_MESSAGE" value="demo printW" />
   </component>
 </project>
