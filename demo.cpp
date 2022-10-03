@@ -24,7 +24,8 @@ Adept MobileRobots for information about a commercial version of ARIA at
 robots@mobilerobots.com or 
 Adept MobileRobots, 10 Columbia Drive, Amherst, NH 03031; +1-603-881-7960
 */
-#include "Aria.h"
+//#include "Aria.h"
+#include "Aria/include/Aria.h"
 
 
 /** @example demo.cpp General purpose testing and demo program, using ArMode
@@ -48,6 +49,11 @@ bool handleDebugMessage(ArRobotPacket *pkt)
   msg[255] = 0;
   ArLog::log(ArLog::Terse, "Controller Firmware Debug: %s", msg);
   return true;
+}
+
+void printW()
+{
+	printf("==== WWWWWW ====");
 }
 
 int main(int argc, char** argv)
@@ -125,6 +131,10 @@ int main(int argc, char** argv)
   // Used to perform actions when keyboard keys are pressed
   ArKeyHandler keyHandler;
   Aria::setKeyHandler(&keyHandler);
+
+	ArGlobalFunctor wanderCB(&printW);
+	keyHandler->addKeyHandler('w', &wanderCB);
+	keyHandler->addKeyHandler('W', &wanderCB);
 
   // ArRobot contains an exit action for the Escape key. It also 
   // stores a pointer to the keyhandler so that other parts of the program can
