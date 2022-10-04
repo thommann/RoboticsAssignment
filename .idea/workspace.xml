@@ -9,10 +9,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1fde90fc-9772-4ba8-8a88-29617a5e19aa" name="Changes" comment="idea">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/part_c.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/part_c.cpp" afterDir="false" />
-    </list>
+    <list default="true" id="1fde90fc-9772-4ba8-8a88-29617a5e19aa" name="Changes" comment="part_c maybe" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -61,8 +58,7 @@
       <workItem from="1664767980312" duration="1513000" />
       <workItem from="1664769893240" duration="495000" />
       <workItem from="1664775508504" duration="4771000" />
-      <workItem from="1664781846169" duration="766000" />
-      <workItem from="1664849952617" duration="103000" />
+      <workItem from="1664781846169" duration="706000" />
     </task>
     <task id="LOCAL-00001" summary="demo printW">
       <created>1664770190116</created>
@@ -85,14 +81,7 @@
       <option name="project" value="LOCAL" />
       <updated>1664782123309</updated>
     </task>
-    <task id="LOCAL-00004" summary="idea">
-      <created>1664782605599</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1664782605599</updated>
-    </task>
-    <option name="localTasksCounter" value="5" />
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -112,7 +101,6 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="demo printW" />
     <MESSAGE value="part_c maybe" />
-    <MESSAGE value="idea" />
-    <option name="LAST_COMMIT_MESSAGE" value="idea" />
+    <option name="LAST_COMMIT_MESSAGE" value="part_c maybe" />
   </component>
 </project>
