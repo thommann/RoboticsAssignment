@@ -50,13 +50,13 @@ int main(int argc, char **argv)
 
 	// 4. Read the command sequence and execute it.
 	printf("You can type in your command. With pressing enter, the commands will be executed in order.\n");
-	printf("The commands are:\n" +
-					"'w': accelerate\n" +
-					"'s': decelerate\n" +
-					"'a': accelerate left rotation\n" +
-					"'d': accelerate right rotation\n" +
-					"' ': stop robot\n" +
-					"'.': exit program");
+	printf("The commands are:\n");
+	printf("'w': accelerate\n");
+	printf("'s': decelerate\n");
+  printf("'a': accelerate left rotation\n");
+	printf("'d': accelerate right rotation\n");
+	printf("' ': stop robot\n");
+	printf("'.': exit program");
 
 	int c;
 	while(true){
