@@ -9,7 +9,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1fde90fc-9772-4ba8-8a88-29617a5e19aa" name="Changes" comment="break">
+    <list default="true" id="1fde90fc-9772-4ba8-8a88-29617a5e19aa" name="Changes" comment="partc">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/part_c.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/part_c.cpp" afterDir="false" />
     </list>
@@ -84,7 +84,21 @@
       <option name="project" value="LOCAL" />
       <updated>1664782123309</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="partc">
+      <created>1664850758261</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1664850758261</updated>
+    </task>
+    <task id="LOCAL-00005" summary="partc">
+      <created>1664850787027</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1664850787027</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -104,6 +118,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="demo printW" />
     <MESSAGE value="part_c maybe" />
-    <option name="LAST_COMMIT_MESSAGE" value="part_c maybe" />
+    <MESSAGE value="partc" />
+    <option name="LAST_COMMIT_MESSAGE" value="partc" />
   </component>
 </project>

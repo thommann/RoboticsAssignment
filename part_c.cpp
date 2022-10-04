@@ -1,6 +1,6 @@
 
-#include "Aria.h"
-//#include "Aria/include/Aria.h"
+//#include "Aria.h"
+#include "Aria/include/Aria.h"
 #include <cstdio>
 
 int main(int argc, char **argv)
@@ -48,23 +48,43 @@ int main(int argc, char **argv)
 	// 3. Unlock the robot
 	robot.unlock();
 
-	// 4. Sleep a while and let the robot move
+	// 4. Read the command sequence and execute it.
+	printf("You can type in your command. With pressing enter, the commands will be executed in order.\n");
+	printf("The commands are:\n" +
+					"'w': accelerate\n" +
+					"'s': decelerate\n" +
+					"'a': accelerate left rotation\n" +
+					"'d': accelerate right rotation\n" +
+					"' ': stop robot\n" +
+					"'.': exit program");
+
 	int c;
 	while(true){
 		c = getchar();
+		int exit = 0;
 		switch(c){
 			case 'w':
-				robot.setVel(robot.getVel() + 10);
+				robot.setVel(robot.getVel() + 20);
 				break;
 			case 's':
-				robot.setVel(robot.getVel() - 10);
+				robot.setVel(robot.getVel() - 20);
+				break;
+			case 'a':
+				robot.setRotVel(robot.getRotVel() + 10);
+				break;
+			case 'd':
+				robot.setRotVel(robot.getRotVel() - 10);
 				break;
 			case ' ':
 				robot.stop();
 				break;
+			case '.':
+				exit = 1;
+				break;
+			default:
+				break;
 		}
-		printf("%f %f %f\n", robot.getX(), robot.getY(), robot.getTh());
-		ArUtil::sleep(1000);
+		if(exit) break;
 	}
 
 	// End of controling
