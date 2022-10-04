@@ -9,7 +9,10 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1fde90fc-9772-4ba8-8a88-29617a5e19aa" name="Changes" comment="part_c maybe" />
+    <list default="true" id="1fde90fc-9772-4ba8-8a88-29617a5e19aa" name="Changes" comment="break">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/part_c.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/part_c.cpp" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

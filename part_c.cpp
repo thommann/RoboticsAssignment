@@ -51,7 +51,7 @@ int main(int argc, char **argv)
 	// 4. Sleep a while and let the robot move
 	int c;
 	while(true){
-		c = getchar()
+		c = getchar();
 		switch(c){
 			case 'w':
 				robot.setVel(robot.getVel() + 10);
