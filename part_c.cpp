@@ -64,16 +64,16 @@ int main(int argc, char **argv)
 		int exit = 0;
 		switch(c){
 			case 'w':
-				robot.setVel(robot.getVel() + 50);
+				robot.setVel(robot.getVel() + 100);
 				break;
 			case 's':
-				robot.setVel(robot.getVel() - 50);
+				robot.setVel(robot.getVel() - 100);
 				break;
 			case 'a':
-				robot.setRotVel(robot.getRotVel() + 10);
+				robot.setRotVel(robot.getRotVel() + 5);
 				break;
 			case 'd':
-				robot.setRotVel(robot.getRotVel() - 10);
+				robot.setRotVel(robot.getRotVel() - 5);
 				break;
 			case ' ':
 				robot.stop();
