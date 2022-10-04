@@ -60,7 +60,7 @@ int main(int argc, char **argv)
 				robot.setVel(robot.getVel() - 10);
 				break;
 			case ' ':
-				robot.stop()
+				robot.stop();
 				break;
 		}
 		printf("%f %f %f\n", robot.getX(), robot.getY(), robot.getTh());
