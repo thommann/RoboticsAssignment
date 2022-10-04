@@ -1,6 +1,6 @@
 
-//#include "Aria.h"
-#include "Aria/include/Aria.h"
+#include "Aria.h"
+//#include "Aria/include/Aria.h"
 #include <cstdio>
 
 int main(int argc, char **argv)
