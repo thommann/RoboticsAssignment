@@ -56,7 +56,7 @@ int main(int argc, char **argv)
   printf("'a': accelerate left rotation\n");
 	printf("'d': accelerate right rotation\n");
 	printf("' ': stop robot\n");
-	printf("'.': exit program");
+	printf("'.': exit program\n");
 
 	int c;
 	while(true){
