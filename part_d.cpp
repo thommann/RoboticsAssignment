@@ -1,6 +1,6 @@
 
 #include "Aria.h"
-//#include "Aria/include/Aria.h"
+#include "Aria/include/Aria.h"
 #include <cstdio>
 
 int main(int argc, char **argv)
@@ -61,35 +61,39 @@ int main(int argc, char **argv)
 
 	int c;
 	while(true){
-		c = getchar();
-		int exit = 0;
-		switch(c){
-			case 'w':
-				robot.setVel(robot.getVel() + 100);
-				break;
-			case 's':
-				robot.setVel(robot.getVel() - 100);
-				break;
-			case 'a':
-				robot.setRotVel(robot.getRotVel() + 5);
-				break;
-			case 'd':
-				robot.setRotVel(robot.getRotVel() - 5);
-				break;
-			case ' ':
-				robot.stop();
-				break;
-			case '.':
-				exit = 1;
-				break;
-			default:
-				break;
+		double reading = sonar.cumulativeReadingPolar(-20, 20);
+		if(robot.getVel() > 0 && reading < 300){
+			robot.setVel(0);
+		} else if(robot.getVel() > 100 && reading < 600){
+			robot.setVel(100);
+		} else {
+			c = getchar();
+			int exit = 0;
+			switch (c) {
+				case 'w':
+					robot.setVel(robot.getVel() + 100);
+					break;
+				case 's':
+					robot.setVel(robot.getVel() - 100);
+					break;
+				case 'a':
+					robot.setRotVel(robot.getRotVel() + 5);
+					break;
+				case 'd':
+					robot.setRotVel(robot.getRotVel() - 5);
+					break;
+				case ' ':
+					robot.stop();
+					break;
+				case '.':
+					exit = 1;
+					break;
+				default:
+					break;
+			}
+			if (exit) break;
 		}
-		if(exit) break;
 		ArUtil::sleep(300);
-		printf("Pos-Ori: %f %f %f\n", robot.getX(), robot.getY(), robot.getTh());
-		double readings = sonar.cumulativeReadingPolar(-20, 20);
-		printf("Reading: %f\n", readings);
 	}
 
 	// End of controling
