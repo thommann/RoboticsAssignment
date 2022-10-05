@@ -75,12 +75,13 @@ int main(int argc, char **argv)
 		printf("Input your target coordinates: ");
 
 		getline(cin, input);
-		cout << "Input: " << input << endl;
+		printf("Input: %s\n", input.c_str());
 
-		stringstream ss(input);
+		stringstream ss(input.c_str());
 
 		int i = 0;
 		while(getline(ss, coord, ' ')){
+			printf("Coord: %s\n", coord.c_str());
 			if(i==0)
 				target_x = atof(coord.c_str());
 			else if (i==1)
