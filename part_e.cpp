@@ -4,6 +4,8 @@
 #include <cmath>
 #include <iostream>
 
+using namespace std;
+
 double radiansToDegrees(double radians)
 {
 	return radians * 180 / M_PI;
