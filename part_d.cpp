@@ -96,7 +96,7 @@ int main(int argc, char **argv)
 			}
 			if (exit) break;
 		}
-		ArUtil::sleep(300);
+		ArUtil::sleep(500);
 	}
 
 	// End of controling
