@@ -62,9 +62,11 @@ int main(int argc, char **argv)
 	while(true){
 		double reading = sonar.cumulativeReadingPolar(-20, 20);
 		double velocity = robot.getVel();
+		double rotation_velocity = robot.getRotVel();
 
 		printf("Distance: %f\n", reading);
 		printf("Velocity: %f\n", velocity);
+		printf("Rotation: %f\n", rotation_velocity);
 
 		if(100 >= velocity && velocity > 0 && reading < velocity * 10){
 			printf("stop\n");
@@ -83,10 +85,10 @@ int main(int argc, char **argv)
 					robot.setVel(velocity - 100);
 					break;
 				case 'a':
-					robot.setRotVel(velocity + 5);
+					robot.setRotVel(rotation_velocity + 5);
 					break;
 				case 'd':
-					robot.setRotVel(velocity - 5);
+					robot.setRotVel(rotation_velocity - 5);
 					break;
 				case ' ':
 					robot.stop();
