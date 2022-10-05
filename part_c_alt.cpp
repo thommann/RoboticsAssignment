@@ -29,7 +29,7 @@ int main(int argc, char **argv)
   Aria::setKeyHandler(&keyHandler);
 
 	//ArGlobalFunctor accelerate1(&accelerate);
-	ArFunctor1C<ArRobot, int> accelerate2(robot, &ArRobot::setVel, 100);
+	ArFunctor1C<ArRobot, double> accelerate2(robot, &ArRobot::setVel, 100);
 	keyHandler.addKeyHandler(ArKeyHandler::UP, &accelerate2);
 
 
