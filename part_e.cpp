@@ -72,8 +72,7 @@ int main(int argc, char **argv)
 		printf("Input your target coordinates: ");
 
 		cin >> input;
-
-		printf("Input: %s\n", input.c_str());
+		cout << "Input: " << input << endl;
 
 		//printf("Input: %s %s %s\n", target_x_string, target_y_string, target_th_string);
 
@@ -95,8 +94,8 @@ int main(int argc, char **argv)
 		double angle = radiansToDegrees(angle_rad);
 
 		printf("Target:\n");
-		printf("Direction:\t%f\n", angle);
-		printf("Distance:\t%f\n", distance);
+		printf("\tDirection:\t%f\n", angle);
+		printf("\tDistance:\t%f\n", distance);
 
 		ArPose currentPose(initial_x, initial_y, initial_th);
 		robot.moveTo(currentPose);
