@@ -1,6 +1,6 @@
 
 #include "Aria.h"
-//#include "Aria/include/Aria.h"
+#include "Aria/include/Aria.h"
 #include <cmath>
 
 int main(int argc, char **argv)
@@ -60,8 +60,12 @@ int main(int argc, char **argv)
 	double delta_x = target_x - initial_x;
 	double delta_y = target_y - initial_y;
 
+	double distance = sqrt(pow(delta_x, 2) * pow(delta_y, 2))
+
 	double angle = atan2(delta_x, delta_y);
 
+	robot.setHeading(angle);
+	robot.move(distance);
 	printf("Angle: %f", angle);
 
 	ArPose targetPose(target_x, target_y, target_th);
