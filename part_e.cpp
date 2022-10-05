@@ -53,6 +53,10 @@ int main(int argc, char **argv)
 	double target_y = 5000;
 	double target_th = 90;
 
+	double initial_x = 5090;
+	double initial_y = 3580;
+	double initial_th = 3093.97;
+
 	while(true){
 		double odo_x = robot.getX();
 		double odo_y = robot.getY();
