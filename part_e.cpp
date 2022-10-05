@@ -71,27 +71,41 @@ int main(int argc, char **argv)
 
 	double angle = radiansToDegrees(angle_rad);
 
-	printf("Angle: %f\n", angle);
-	printf("Distance: %f\n", distance);
+	printf("Target:\n");
+	printf("Direction:\t%f\n", angle);
+	printf("Distance:\t%f\n", distance);
 
 	ArPose currentPose(initial_x, initial_y, initial_th);
 	robot.moveTo(currentPose);
 
-	printf("Odometry: %f %f %f\n", robot.getX(), robot.getY(), robot.getTh());
+	printf("Start:\t%f\t%f\t%f\n", robot.getX(), robot.getY(), robot.getTh());
 
 	robot.setHeading(angle);
 	ArUtil::sleep(500);
 	while (true){
 		if(robot.getRotVel() == 0) break;
+		ArUtil::sleep(500);
 	}
+
+	printf("Target Direction:\t%f\t%f\t%f\n", robot.getX(), robot.getY(), robot.getTh());
 
 	robot.move(distance);
 	ArUtil::sleep(500);
 	while (true){
 		if(robot.getVel() == 0) break;
+		ArUtil::sleep(500);
 	}
 
-	printf("Odometry: %f %f %f\n", robot.getX(), robot.getY(), robot.getTh());
+	printf("Final Position:\t%f\t%f\t%f\n", robot.getX(), robot.getY(), robot.getTh());
+
+	robot.setHeading(target_th);
+	ArUtil::sleep(500);
+	while (true){
+		if(robot.getRotVel() == 0) break;
+		ArUtil::sleep(500);
+	}
+
+	printf("Final Heading:\t%f\t%f\t%f\n", robot.getX(), robot.getY(), robot.getTh());
 
 	// End of controling
 
