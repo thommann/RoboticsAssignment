@@ -31,7 +31,8 @@ int main(int argc, char **argv)
   ArKeyHandler keyHandler;
   Aria::setKeyHandler(&keyHandler);
 
-	ArGlobalFunctor accelerate1([robot, accelerate](){accelerate(robot);});
+	acc_lamda = [&robot](){ accelerate(robot)};
+	ArGlobalFunctor accelerate1(&acc_lamda);
 	// ArFunctor1C<ArRobot, int> accelerate2(robot, &ArRobot::setVel, 100);
 	keyHandler.addKeyHandler(ArKeyHandler::UP, &accelerate1);
 
