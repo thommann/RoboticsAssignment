@@ -85,6 +85,8 @@ int main(int argc, char **argv)
 				break;
 		}
 		if(exit) break;
+		ArUtil::sleep(300);
+		printf("%f %f %f\n", robot.getX(), robot.getY(), robot.getTh());
 	}
 
 	// End of controling
