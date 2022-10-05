@@ -73,7 +73,7 @@ int main(int argc, char **argv)
 
 		cin >> input;
 
-		printf("Input: %s\n", input);
+		printf("Input: %s\n", input.c_str());
 
 		//printf("Input: %s %s %s\n", target_x_string, target_y_string, target_th_string);
 
