@@ -70,7 +70,7 @@ int main(int argc, char **argv)
 
 		printf("Input your target coordinates: ");
 
-		getline(input, cin);
+		getline(cin, input);
 		cout << "Input: " << input << endl;
 
 		//printf("Input: %s %s %s\n", target_x_string, target_y_string, target_th_string);
