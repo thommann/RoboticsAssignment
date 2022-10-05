@@ -25,6 +25,7 @@ robots@mobilerobots.com or
 Adept MobileRobots, 10 Columbia Drive, Amherst, NH 03031; +1-603-881-7960
 */
 #include "Aria.h"
+#include "Aria/include/Aria.h"
 
 /** @example teleopActionsExample.cpp  Example using actions for safe 
  * teleoperation with keyboard or joystick.
