@@ -62,15 +62,20 @@ int main(int argc, char **argv)
 	robot.unlock();
 
 	// 4. Read the command sequence and execute it.
+	double initial_x = 5090;
+	double initial_y = 3580;
+	double initial_th = 3093.97;
+
+	ArPose initialPose(initial_x, initial_y, initial_th);
+	robot.moveTo(initialPose);
+
+
 	double target_x;
 	double target_y;
 	double target_th;
 
 	while(true) {
 		string input, coord;
-		string target_x_string = "";
-		string target_y_string = "";
-		string target_th_string = "";
 
 		printf("Input your target coordinates: ");
 
@@ -91,27 +96,21 @@ int main(int argc, char **argv)
 			i++;
 		}
 
-		printf("Input doubles: %f %f %f\n", target_x_string, target_y_string, target_th_string);
+		printf("Input doubles: %f %f %f\n", target_x, target_y, target_th);
 
-		double initial_x = 5090;
-		double initial_y = 3580;
-		double initial_th = 3093.97;
+		double current_x = robot.getX();
+		double current_y = robot.getY();
 
-		double delta_x = target_x - initial_x;
-		double delta_y = target_y - initial_y;
+		double delta_x = target_x - current_x;
+		double delta_y = target_y - current_y;
 
 		double distance = sqrt(pow(delta_x, 2) + pow(delta_y, 2));
-
 		double angle_rad = atan2(delta_y, delta_x);
-
 		double angle = radiansToDegrees(angle_rad);
 
 		printf("Target:\n");
 		printf("\tDirection:\t%f\n", angle);
 		printf("\tDistance:\t%f\n", distance);
-
-		ArPose currentPose(initial_x, initial_y, initial_th);
-		robot.moveTo(currentPose);
 
 		printf("Start:\t%f\t%f\t%f\n", robot.getX(), robot.getY(), robot.getTh());
 
