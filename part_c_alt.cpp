@@ -2,8 +2,8 @@
 #include "Aria.h"
 // #include "Aria/include/Aria.h"
 
-void accelerate(ArRobot *robot){
-	robot->setVel(robot->getVel() + 100);
+void accelerate(){
+	robot.setVel(robot.getVel() + 100);
 };
 
 int main(int argc, char **argv)
@@ -31,8 +31,7 @@ int main(int argc, char **argv)
   ArKeyHandler keyHandler;
   Aria::setKeyHandler(&keyHandler);
 
-	auto acc_lamda = [robot](){ accelerate(*robot)};
-	ArGlobalFunctor accelerate1(&acc_lamda);
+	ArGlobalFunctor accelerate1(&accelerate);
 	// ArFunctor1C<ArRobot, int> accelerate2(robot, &ArRobot::setVel, 100);
 	keyHandler.addKeyHandler(ArKeyHandler::UP, &accelerate1);
 
