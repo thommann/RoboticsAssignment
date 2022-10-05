@@ -71,7 +71,7 @@ int main(int argc, char **argv)
 	ArUtil::sleep(500);
 
 	robot.setHeading(angle);
-	ArUtil::sleep(1000);
+	ArUtil::sleep(2000);
 
 	robot.move(distance);
 
