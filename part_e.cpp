@@ -2,8 +2,7 @@
 #include "Aria.h"
 //#include "Aria/include/Aria.h"
 #include <cmath>
-#include <cstdio>
-#include <sstream>
+#include <iostream>
 #include "stdlib.h"
 
 
@@ -65,41 +64,18 @@ int main(int argc, char **argv)
 	double target_th;
 
 	while(true) {
+		string input;
 		string target_x_string = "";
 		string target_y_string = "";
 		string target_th_string = "";
 
 		printf("Input your target coordinates: ");
-		char c;
-		int coords = 3;
-		while(true) {
-			int exit = 0;
-			c = getchar();
-			switch(c) {
-				case ' ':
-					coords -= 1;
-					break;
-				case '\n':
-					exit = 1;
-					break;
-				default:
-					stringstream ss(c);
-					if (coords == 3)
-						target_x_string += ss.str();
-					else if (coords == 2)
-						target_y_string += ss.str();
-					else if (coords == 1)
-						target_th_string += ss.str();
-					else
-						printf("ERROR: %c", c);
-					break;
-			}
-			if (exit){
-				break;
-			}
-		}
 
-		printf("Input: %s %s %s\n", target_x_string, target_y_string, target_th_string);
+		cin >> input;
+
+		printf("Input: %s\n", input);
+
+		//printf("Input: %s %s %s\n", target_x_string, target_y_string, target_th_string);
 
 		double target_x = 7000;
 		double target_y = 5000;
