@@ -3,6 +3,11 @@
 //#include "Aria/include/Aria.h"
 #include <cmath>
 
+double radiansToDegrees(double radians)
+{
+	return radians * 180 / M_PI;
+}
+
 int main(int argc, char **argv)
 {
 	ArRobot robot;
@@ -65,7 +70,9 @@ int main(int argc, char **argv)
 
 	double distance = sqrt(pow(delta_x, 2) + pow(delta_y, 2));
 
-	double angle = atan2(delta_y, delta_x);
+	double angle_rad = atan2(delta_y, delta_x);
+
+	double angle = radiansToDegrees(angle_rad);
 
 	printf("Angle: %f\n", angle);
 	printf("Distance: %f\n", distance);
