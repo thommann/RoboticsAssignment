@@ -66,7 +66,7 @@ int main(int argc, char **argv)
 	printf("Angle: %f", angle);
 	printf("Distance: %f", distance);
 
-
+	ArPose currentPose(initial_x, initial_y, initial_th);
 	robot.moveTo(currentPose);
 	ArUtil::sleep(500);
 
@@ -74,10 +74,6 @@ int main(int argc, char **argv)
 	ArUtil::sleep(1000);
 
 	robot.move(distance);
-
-	ArPose targetPose(target_x, target_y, target_th);
-	ArPose currentPose(initial_x, initial_y, initial_th);
-
 
 	while(true){
 		double odo_x = robot.getX();
