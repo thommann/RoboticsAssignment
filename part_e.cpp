@@ -63,16 +63,21 @@ int main(int argc, char **argv)
 	double distance = sqrt(pow(delta_x, 2) * pow(delta_y, 2));
 
 	double angle = atan2(delta_x, delta_y);
+	printf("Angle: %f", angle);
+	printf("Distance: %f", distance);
+
+
+	robot.moveTo(currentPose);
+	ArUtil::sleep(500);
 
 	robot.setHeading(angle);
+	ArUtil::sleep(1000);
+
 	robot.move(distance);
-	printf("Angle: %f", angle);
 
 	ArPose targetPose(target_x, target_y, target_th);
 	ArPose currentPose(initial_x, initial_y, initial_th);
 
-	robot.moveTo(currentPose);
-	//robot.move();
 
 	while(true){
 		double odo_x = robot.getX();
