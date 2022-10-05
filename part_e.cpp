@@ -1,7 +1,7 @@
 
 #include "Aria.h"
 //#include "Aria/include/Aria.h"
-#include <cstdio>
+#include <cmath>
 
 int main(int argc, char **argv)
 {
@@ -56,6 +56,13 @@ int main(int argc, char **argv)
 	double initial_x = 5090;
 	double initial_y = 3580;
 	double initial_th = 3093.97;
+
+	double delta_x = target_x - initial_x;
+	double delta_y = target_y - initial_y;
+
+	double angle = atan2(delta_x, delta_y);
+
+	printf("Angle: %f", angle);
 
 	ArPose targetPose(target_x, target_y, target_th);
 	ArPose currentPose(initial_x, initial_y, initial_th);
