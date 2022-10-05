@@ -82,11 +82,11 @@ int main(int argc, char **argv)
 		int i = 0;
 		while(getline(ss, coord, ' ')){
 			if(i==0)
-				target_x = atof(coord);
+				target_x = atof(coord.c_str());
 			else if (i==1)
-				target_y = atof(coord);
+				target_y = atof(coord.c_str());
 			else
-				target_th = atof(coord);
+				target_th = atof(coord.c_str());
 		}
 
 		printf("Input doubles: %f %f %f\n", target_x_string, target_y_string, target_th_string);
