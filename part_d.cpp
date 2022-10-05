@@ -62,12 +62,13 @@ int main(int argc, char **argv)
 	int c;
 	while(true){
 		double reading = sonar.cumulativeReadingPolar(-20, 20);
-		printf("%f\n", reading);
+		printf("Distance: %f\n", reading);
+		double velocity = robot.getVel();
 		if(robot.getVel() > 0 && reading < 500){
-			printf("stop\n");
+			printf("stop %f\n", velocity);
 			robot.stop();
 		} else if(robot.getVel() > 100 && reading < 1500){
-			printf("slow\n");
+			printf("slow %f\n", velocity);
 			robot.setVel(100);
 		} else {
 			c = getchar();
