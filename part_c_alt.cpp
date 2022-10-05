@@ -2,7 +2,7 @@
 #include "Aria.h"
 // #include "Aria/include/Aria.h"
 
-void accelerate(ArRobot *robot){
+void accelerate(ArRobot &robot){
 	robot.setVel(robot.getVel() + 100);
 };
 
