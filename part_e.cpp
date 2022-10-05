@@ -88,6 +88,7 @@ int main(int argc, char **argv)
 				target_y = atof(coord.c_str());
 			else
 				target_th = atof(coord.c_str());
+			i++;
 		}
 
 		printf("Input doubles: %f %f %f\n", target_x_string, target_y_string, target_th_string);
