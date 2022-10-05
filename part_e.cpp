@@ -60,7 +60,7 @@ int main(int argc, char **argv)
 	double target_th;
 
 	while(true) {
-		String input;
+		string input;
 		gets(input);
 
 		printf("Input: %s\n", input);
