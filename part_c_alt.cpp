@@ -1,6 +1,6 @@
 
 #include "Aria.h"
-//#include "Aria/include/Aria.h"
+#include "Aria/include/Aria.h"
 
 int main(int argc, char **argv)
 {
@@ -27,8 +27,13 @@ int main(int argc, char **argv)
   ArKeyHandler keyHandler;
   Aria::setKeyHandler(&keyHandler);
 
-	ArFunctor1C<ArRobot, int> accelerate(robot, &ArRobot::setVel, 100);
-	keyHandler.addKeyHandler(ArKeyHandler::UP, &accelerate);
+	void accelerate(ArRobot *robot){
+		robot.setVel(robot.getVel() + 100);
+	};
+
+	ArGlobalFunctor accelerate1(&([robot]()accelerate(robot)));
+	ArFunctor1C<ArRobot, int> accelerate2(robot, &ArRobot::setVel, 100);
+	keyHandler.addKeyHandler(ArKeyHandler::UP, &accelerate1);
 
 
 	// ArRobot contains an exit action for the Escape key. It also
