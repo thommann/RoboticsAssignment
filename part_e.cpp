@@ -57,8 +57,8 @@ int main(int argc, char **argv)
 	double initial_y = 3580;
 	double initial_th = 3093.97;
 
-	double delta_x = initial_x - target_x;
-	double delta_y = initial_y - target_y;
+	double delta_x = target_x - initial_x;
+	double delta_y = target_y - initial_y;
 
 	double distance = sqrt(pow(delta_x, 2) + pow(delta_y, 2));
 
@@ -71,7 +71,7 @@ int main(int argc, char **argv)
 	robot.moveTo(currentPose);
 
 	robot.setHeading(angle);
-	ArUtil::sleep(6000);
+	ArUtil::sleep(10000);
 
 	robot.move(distance);
 
