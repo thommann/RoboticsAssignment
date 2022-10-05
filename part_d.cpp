@@ -62,6 +62,7 @@ int main(int argc, char **argv)
 	int c;
 	while(true){
 		double reading = sonar.cumulativeReadingPolar(-20, 20);
+		printf("%f\n", reading);
 		if(robot.getVel() > 0 && reading < 300){
 			robot.setVel(0);
 		} else if(robot.getVel() > 100 && reading < 600){
