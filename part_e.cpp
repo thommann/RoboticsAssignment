@@ -4,12 +4,35 @@
 #include <cmath>
 #include <iostream>
 #include <cstdio>
+#include <cstdlib>
+
 
 using namespace std;
 
 double radiansToDegrees(double radians)
 {
 	return radians * 180 / M_PI;
+}
+
+string coords [3];
+
+void split(string str)
+{
+	int currIndex = 0, i = 0;
+	int startIndex = 0, endIndex = 0;
+	while (i <= len(str))
+	{
+		if (str[i] == ' ' || i == len(str))
+		{
+			endIndex = i;
+			string subStr = "";
+			subStr.append(str, startIndex, endIndex - startIndex);
+			coords[currIndex] = subStr;
+			currIndex += 1;
+			startIndex = endIndex + 1;
+		}
+		i++;
+	}
 }
 
 int main(int argc, char **argv)
@@ -43,7 +66,6 @@ int main(int argc, char **argv)
 	// robot.attachKeyHandler(&keyHandler);
 	// printf("You may press escape to exit\n");
 
-	// TODO: control the robot
 
 	// Start of controling
 
@@ -73,11 +95,13 @@ int main(int argc, char **argv)
 		getline(cin, input);
 		cout << "Input: " << input << endl;
 
-		//printf("Input: %s %s %s\n", target_x_string, target_y_string, target_th_string);
+		split(input);
 
-		double target_x = 7000;
-		double target_y = 5000;
-		double target_th = 90;
+		target_x = atof(coords[0]);
+		target_y = atof(coords[1]);
+		target_th = atof(coords[2]);
+
+		printf("Input doubles: %f %f %f\n", target_x_string, target_y_string, target_th_string);
 
 		double initial_x = 5090;
 		double initial_y = 3580;
