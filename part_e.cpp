@@ -89,7 +89,7 @@ int main(int argc, char **argv)
 						target_y_string += ss.str();
 					else if (coords == 1)
 						target_th_string += ss.str();
-					else:
+					else
 						print("ERROR: %c", c);
 					break;
 			}
