@@ -66,7 +66,7 @@ int main(int argc, char **argv)
 		printf("Distance: %f\n", reading);
 		printf("Velocity: %f\n", velocity);
 
-		if(100 >= velocity > 0 && reading < velocity * 10){
+		if(100 >= velocity && velocity > 0 && reading < velocity * 10){
 			printf("stop\n");
 			robot.setVel(0);
 		} else if(velocity > 100 && reading < velocity * 10){
