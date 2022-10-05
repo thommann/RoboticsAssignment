@@ -28,7 +28,7 @@ int main(int argc, char **argv)
   Aria::setKeyHandler(&keyHandler);
 
 	ArFunctor1C<ArRobot, int> accelerate(&robot, &ArRobot::setVel, 100);
-	keyHandler->addKeyHandler(ArKeyHandler::UP, &accelerate);
+	keyHandler.addKeyHandler(ArKeyHandler::UP, &accelerate);
 
 
 	// ArRobot contains an exit action for the Escape key. It also
