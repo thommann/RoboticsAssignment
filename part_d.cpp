@@ -79,21 +79,27 @@ int main(int argc, char **argv)
 			int exit = 0;
 			switch (c) {
 				case 'w':
+					printf("accelerate\n");
 					robot.setVel(velocity + 100);
 					break;
 				case 's':
+					printf("decelerate\n");
 					robot.setVel(velocity - 100);
 					break;
 				case 'a':
+					printf("left\n");
 					robot.setRotVel(rotation_velocity + 5);
 					break;
 				case 'd':
+					printf("right\n");
 					robot.setRotVel(rotation_velocity - 5);
 					break;
 				case ' ':
+					printf("stop\n");
 					robot.stop();
 					break;
 				case '.':
+					printf("exit\n");
 					exit = 1;
 					break;
 				default:
