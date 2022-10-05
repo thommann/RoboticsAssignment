@@ -70,6 +70,8 @@ int main(int argc, char **argv)
 	ArPose currentPose(initial_x, initial_y, initial_th);
 	robot.moveTo(currentPose);
 
+	printf("Odometry: %f %f %f\n", odo_x, odo_y, odo_th);
+
 	robot.setHeading(angle);
 	ArUtil::sleep(10000);
 
