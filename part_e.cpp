@@ -1,6 +1,6 @@
 
 #include "Aria.h"
-#include "Aria/include/Aria.h"
+//#include "Aria/include/Aria.h"
 #include <cmath>
 
 int main(int argc, char **argv)
