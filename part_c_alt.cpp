@@ -3,7 +3,7 @@
 // #include "Aria/include/Aria.h"
 
 void accelerate(ArRobot *robot){
-	robot.setVel(robot.getVel() + 100);
+	robot->setVel(robot->getVel() + 100);
 };
 
 int main(int argc, char **argv)
