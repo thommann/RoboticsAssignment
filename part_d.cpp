@@ -65,8 +65,8 @@ int main(int argc, char **argv)
 		printf("%f\n", reading);
 		if(robot.getVel() > 0 && reading < 500){
 			printf("stop\n");
-			robot.setVel(0);
-		} else if(robot.getVel() > 100 && reading < 1000){
+			robot.stop();
+		} else if(robot.getVel() > 100 && reading < 1500){
 			printf("slow\n");
 			robot.setVel(100);
 		} else {
