@@ -1,6 +1,6 @@
 
 #include "Aria.h"
-//#include "Aria/include/Aria.h"
+#include "Aria/include/Aria.h"
 #include <cstdio>
 
 int main(int argc, char **argv)
@@ -87,7 +87,9 @@ int main(int argc, char **argv)
 		}
 		if(exit) break;
 		ArUtil::sleep(300);
-		printf("%f %f %f\n", robot.getX(), robot.getY(), robot.getTh());
+		printf("Pos-Ori: %f %f %f\n", robot.getX(), robot.getY(), robot.getTh());
+		double readings = sonar.cumulativeReadingPolar(-20, 20);
+		printf("Reading: %f\n", readings);
 	}
 
 	// End of controling
