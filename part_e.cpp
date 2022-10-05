@@ -2,7 +2,7 @@
 #include "Aria.h"
 //#include "Aria/include/Aria.h"
 #include <cmath>
-#include <cstdio>
+#include <iostream>
 
 double radiansToDegrees(double radians)
 {
@@ -60,8 +60,8 @@ int main(int argc, char **argv)
 	double target_th;
 
 	while(true) {
-		char input [16];
-		gets(input);
+		string input;
+		getline(cin, input);
 
 		printf("Input: %s\n", input);
 
