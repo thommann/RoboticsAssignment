@@ -65,7 +65,7 @@ int main(int argc, char **argv)
 		string input;
 		getline(cin, input);
 
-		printf("Input: %s\n", input);
+		printf("Input: %s\n", input.c_str());
 
 		double target_x = 7000;
 		double target_y = 5000;
