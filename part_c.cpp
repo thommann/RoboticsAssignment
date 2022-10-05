@@ -60,7 +60,7 @@ int main(int argc, char **argv)
 
 	int c;
 	while(true){
-		c = getchar_unlocked();
+		c = getchar();
 		int exit = 0;
 		switch(c){
 			case 'w':
