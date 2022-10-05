@@ -90,7 +90,7 @@ int main(int argc, char **argv)
 					else if (coords == 1)
 						target_th_string += ss.str();
 					else
-						print("ERROR: %c", c);
+						printf("ERROR: %c", c);
 					break;
 			}
 			if (exit){
