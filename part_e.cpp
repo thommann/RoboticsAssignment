@@ -65,9 +65,6 @@ int main(int argc, char **argv)
 	double delta_x = target_x - initial_x;
 	double delta_y = target_y - initial_y;
 
-	//double delta_x = initial_x - target_x;
-	//double delta_y = initial_y - target_y;
-
 	double distance = sqrt(pow(delta_x, 2) + pow(delta_y, 2));
 
 	double angle_rad = atan2(delta_y, delta_x);
@@ -83,15 +80,18 @@ int main(int argc, char **argv)
 	printf("Odometry: %f %f %f\n", robot.getX(), robot.getY(), robot.getTh());
 
 	robot.setHeading(angle);
-	ArUtil::sleep(10000);
+	ArUtil::sleep(500);
+	while (true){
+		if(robot.getRotVel() == 0) break;
+	}
 
 	robot.move(distance);
-
-	while(true){
-
-		printf("Odometry: %f %f %f\n", robot.getX(), robot.getY(), robot.getTh());
-		ArUtil::sleep(500);
+	ArUtil::sleep(500);
+	while (true){
+		if(robot.getVel() == 0) break;
 	}
+
+	printf("Odometry: %f %f %f\n", robot.getX(), robot.getY(), robot.getTh());
 
 	// End of controling
 
