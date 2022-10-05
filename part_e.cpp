@@ -82,7 +82,7 @@ int main(int argc, char **argv)
 					exit = 1;
 					break;
 				default:
-					stringstream ss = c;
+					stringstream ss(c);
 					if (coords == 3)
 						target_x_string += ss.str();
 					else if (coords == 2)
