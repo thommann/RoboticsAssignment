@@ -1,0 +1,1 @@
+c++ -fPIC -g -Wall -I/usr/local/Aria/include "$1".cpp -o "$1" -L/usr/local/Aria/lib -lAria -lpthread -ldl -lrt
