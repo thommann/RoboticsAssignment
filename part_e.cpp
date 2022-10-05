@@ -70,7 +70,7 @@ int main(int argc, char **argv)
 	ArPose currentPose(initial_x, initial_y, initial_th);
 	robot.moveTo(currentPose);
 
-	printf("Odometry: %f %f %f\n", odo_x, odo_y, odo_th);
+	printf("Odometry: %f %f %f\n", robot.getX(), robot.getY(), robot.getTh());
 
 	robot.setHeading(angle);
 	ArUtil::sleep(10000);
@@ -78,11 +78,8 @@ int main(int argc, char **argv)
 	robot.move(distance);
 
 	while(true){
-		double odo_x = robot.getX();
-		double odo_y = robot.getY();
-		double odo_th = robot.getTh();
 
-		printf("Odometry: %f %f %f\n", odo_x, odo_y, odo_th);
+		printf("Odometry: %f %f %f\n", robot.getX(), robot.getY(), robot.getTh());
 		ArUtil::sleep(500);
 	}
 
