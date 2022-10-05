@@ -45,7 +45,6 @@ int main(int argc, char **argv)
 	//    e.g. robot.setVel(150);
 	robot.setVel(0);
 
-
 	// 3. Unlock the robot
 	robot.unlock();
 
@@ -62,13 +61,16 @@ int main(int argc, char **argv)
 	int c;
 	while(true){
 		double reading = sonar.cumulativeReadingPolar(-20, 20);
-		printf("Distance: %f\n", reading);
 		double velocity = robot.getVel();
+
+		printf("Distance: %f\n", reading);
+		printf("Velocity: %f\n", velocity);
+
 		if(velocity > 0 && reading < velocity * 5){
-			printf("stop %f\n", velocity);
+			printf("stop\n");
 			robot.setVel(0);
 		} else if(velocity > 100 && reading < velocity * 10){
-			printf("slow %f\n", velocity);
+			printf("slow\n");
 			robot.setVel(100);
 		} else {
 			c = getchar();
@@ -101,7 +103,6 @@ int main(int argc, char **argv)
 	}
 
 	// End of controling
-
 
 	Aria::shutdown();
 
