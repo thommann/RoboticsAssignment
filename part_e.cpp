@@ -5,6 +5,9 @@
 #include <iostream>
 #include <cstdio>
 #include <cstdlib>
+#include <string>
+#include <vector>
+#include <sstream>
 
 
 using namespace std;
@@ -12,27 +15,6 @@ using namespace std;
 double radiansToDegrees(double radians)
 {
 	return radians * 180 / M_PI;
-}
-
-string coords [3];
-
-void split(string str)
-{
-	int currIndex = 0, i = 0;
-	int startIndex = 0, endIndex = 0;
-	while (i <= len(str))
-	{
-		if (str[i] == ' ' || i == len(str))
-		{
-			endIndex = i;
-			string subStr = "";
-			subStr.append(str, startIndex, endIndex - startIndex);
-			coords[currIndex] = subStr;
-			currIndex += 1;
-			startIndex = endIndex + 1;
-		}
-		i++;
-	}
 }
 
 int main(int argc, char **argv)
@@ -85,7 +67,7 @@ int main(int argc, char **argv)
 	double target_th;
 
 	while(true) {
-		string input;
+		string input, coord;
 		string target_x_string = "";
 		string target_y_string = "";
 		string target_th_string = "";
@@ -95,11 +77,17 @@ int main(int argc, char **argv)
 		getline(cin, input);
 		cout << "Input: " << input << endl;
 
-		split(input);
+		stringstream ss(input);
 
-		target_x = atof(coords[0]);
-		target_y = atof(coords[1]);
-		target_th = atof(coords[2]);
+		int i = 0;
+		while(getline(ss, coord, ' ')){
+			if(i==0)
+				target_x = atof(coord);
+			else if (i==1)
+				target_y = atof(coord);
+			else
+				target_th = atof(coord);
+		}
 
 		printf("Input doubles: %f %f %f\n", target_x_string, target_y_string, target_th_string);
 
