@@ -2,6 +2,7 @@
 #include "Aria.h"
 //#include "Aria/include/Aria.h"
 #include <cmath>
+#include <cstdio>
 
 double radiansToDegrees(double radians)
 {
@@ -54,58 +55,69 @@ int main(int argc, char **argv)
 	robot.unlock();
 
 	// 4. Read the command sequence and execute it.
-	double target_x = 7000;
-	double target_y = 5000;
-	double target_th = 90;
+	double target_x;
+	double target_y;
+	double target_th;
 
-	double initial_x = 5090;
-	double initial_y = 3580;
-	double initial_th = 3093.97;
+	while(true) {
+		String input;
+		gets(input);
 
-	double delta_x = target_x - initial_x;
-	double delta_y = target_y - initial_y;
+		printf("Input: %s\n", input);
 
-	double distance = sqrt(pow(delta_x, 2) + pow(delta_y, 2));
+		double target_x = 7000;
+		double target_y = 5000;
+		double target_th = 90;
 
-	double angle_rad = atan2(delta_y, delta_x);
+		double initial_x = 5090;
+		double initial_y = 3580;
+		double initial_th = 3093.97;
 
-	double angle = radiansToDegrees(angle_rad);
+		double delta_x = target_x - initial_x;
+		double delta_y = target_y - initial_y;
 
-	printf("Target:\n");
-	printf("Direction:\t%f\n", angle);
-	printf("Distance:\t%f\n", distance);
+		double distance = sqrt(pow(delta_x, 2) + pow(delta_y, 2));
 
-	ArPose currentPose(initial_x, initial_y, initial_th);
-	robot.moveTo(currentPose);
+		double angle_rad = atan2(delta_y, delta_x);
 
-	printf("Start:\t%f\t%f\t%f\n", robot.getX(), robot.getY(), robot.getTh());
+		double angle = radiansToDegrees(angle_rad);
 
-	robot.setHeading(angle);
-	ArUtil::sleep(500);
-	while (true){
-		if(robot.getRotVel() == 0) break;
+		printf("Target:\n");
+		printf("Direction:\t%f\n", angle);
+		printf("Distance:\t%f\n", distance);
+
+		ArPose currentPose(initial_x, initial_y, initial_th);
+		robot.moveTo(currentPose);
+
+		printf("Start:\t%f\t%f\t%f\n", robot.getX(), robot.getY(), robot.getTh());
+
+		robot.setHeading(angle);
 		ArUtil::sleep(500);
-	}
+		while (true) {
+			if (robot.getRotVel() == 0) break;
+			ArUtil::sleep(500);
+		}
 
-	printf("Target Direction:\t%f\t%f\t%f\n", robot.getX(), robot.getY(), robot.getTh());
+		printf("Target Direction:\t%f\t%f\t%f\n", robot.getX(), robot.getY(), robot.getTh());
 
-	robot.move(distance);
-	ArUtil::sleep(500);
-	while (true){
-		if(robot.getVel() == 0) break;
+		robot.move(distance);
 		ArUtil::sleep(500);
-	}
+		while (true) {
+			if (robot.getVel() == 0) break;
+			ArUtil::sleep(500);
+		}
 
-	printf("Final Position:\t%f\t%f\t%f\n", robot.getX(), robot.getY(), robot.getTh());
+		printf("Final Position:\t%f\t%f\t%f\n", robot.getX(), robot.getY(), robot.getTh());
 
-	robot.setHeading(target_th);
-	ArUtil::sleep(500);
-	while (true){
-		if(robot.getRotVel() == 0) break;
+		robot.setHeading(target_th);
 		ArUtil::sleep(500);
-	}
+		while (true) {
+			if (robot.getRotVel() == 0) break;
+			ArUtil::sleep(500);
+		}
 
-	printf("Final Heading:\t%f\t%f\t%f\n", robot.getX(), robot.getY(), robot.getTh());
+		printf("Final Heading:\t%f\t%f\t%f\n", robot.getX(), robot.getY(), robot.getTh());
+	}
 
 	// End of controling
 
