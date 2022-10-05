@@ -68,7 +68,6 @@ int main(int argc, char **argv)
 
 	ArPose currentPose(initial_x, initial_y, initial_th);
 	robot.moveTo(currentPose);
-	ArUtil::sleep(500);
 
 	robot.setHeading(angle);
 	ArUtil::sleep(2000);
