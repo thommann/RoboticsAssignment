@@ -60,8 +60,8 @@ int main(int argc, char **argv)
 	ArPose targetPose(target_x, target_y, target_th);
 	ArPose currentPose(initial_x, initial_y, initial_th);
 
-	robot.moveTo(targetPose, currentPose);
-	robot.move();
+	robot.moveTo(currentPose);
+	//robot.move();
 
 	while(true){
 		double odo_x = robot.getX();
