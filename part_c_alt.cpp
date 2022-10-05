@@ -31,7 +31,7 @@ int main(int argc, char **argv)
 		robot.setVel(robot.getVel() + 100);
 	};
 
-	ArGlobalFunctor accelerate1(&([robot]()accelerate(robot)));
+	ArGlobalFunctor accelerate1(&([robot](){accelerate(robot);}));
 	// ArFunctor1C<ArRobot, int> accelerate2(robot, &ArRobot::setVel, 100);
 	keyHandler.addKeyHandler(ArKeyHandler::UP, &accelerate1);
 
