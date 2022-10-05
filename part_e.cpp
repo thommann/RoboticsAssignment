@@ -4,6 +4,7 @@
 #include <cmath>
 #include <cstdio>
 #include <sstream>
+#include "stdlib.h"
 
 
 using namespace std;
@@ -69,7 +70,7 @@ int main(int argc, char **argv)
 		string target_th_string = "";
 
 		printf("Input your target coordinates: ");
-		int c;
+		char c;
 		int coords = 3;
 		while(true) {
 			int exit = 0;
