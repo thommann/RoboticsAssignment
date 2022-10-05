@@ -1,6 +1,6 @@
 
-#include "Aria.h"
-//#include "Aria/include/Aria.h"
+//#include "Aria.h"
+#include "Aria/include/Aria.h"
 #include <cstdio>
 
 int main(int argc, char **argv)
@@ -57,13 +57,18 @@ int main(int argc, char **argv)
 	double initial_y = 3580;
 	double initial_th = 3093.97;
 
+	ArPose targetPose(target_x, target_y, target_th);
+	ArPose currentPose(initial_x, initial_y, initial_th);
+
+	robot.moveTo(targetPose, currentPose);
+
 	while(true){
 		double odo_x = robot.getX();
 		double odo_y = robot.getY();
 		double odo_th = robot.getTh();
 
 		printf("Odometry: %f %f %f\n", odo_x, odo_y, odo_th);
-		ArUtil::sleep(300);
+		ArUtil::sleep(500);
 	}
 
 	// End of controling
