@@ -3,8 +3,7 @@
 //#include "Aria/include/Aria.h"
 #include <cmath>
 #include <iostream>
-#include "stdlib.h"
-
+#include <cstdio>
 
 using namespace std;
 
