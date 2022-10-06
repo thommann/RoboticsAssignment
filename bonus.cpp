@@ -146,10 +146,11 @@ int main(int argc, char **argv)
 			ArUtil::sleep(500);
 			double reading = sonar.cumulativeReadingPolar(-20, 20);
 			if(reading < 500){
+				printf("Obstacle: %f\n", reading);
 				obstacle = 1;
-				robot.setDeltaHeading(45);
+				robot.setDeltaHeading(90);
 				waitForRot(robot);
-				robot.move(100);
+				robot.move(200);
 				waitForMove(robot);
 				break;
 			}
