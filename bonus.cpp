@@ -148,21 +148,21 @@ int main(int argc, char **argv)
 			double reading_right = sonar.cumulativeReadingPolar(0, 40);
 			double reading_max = max(reading_left, reading_right);
 			if(reading_max < 5000 && (reading_max < 1000 || reading_max < 5 * robot.getVel())){
+				obstacle = 1;
 				printf("Obstacle: %f %f\n", reading_left, reading_right);
 				robot.stop();
 				waitForMove(robot);
-				obstacle = 1;
 				if(reading_right > reading_left){
 					robot.setDeltaHeading(45);
 				} else {
 					robot.setDeltaHeading(-45);
 				}
 				waitForRot(robot);
-				robot.move(1000);
+				robot.move(500);
 				waitForMove(robot);
 				break;
 			}
-			if (robot.getVel() == 0) break;
+			if (robot.getVel() == 0 && reading_max >= 1000) break;
 			ArUtil::sleep(200);
 		}
 		if (obstacle) continue;
