@@ -148,7 +148,7 @@ int main(int argc, char **argv)
 			double reading_right = sonar.cumulativeReadingPolar(0, 20);
 			double reading_max = max(reading_left, reading_right);
 			if(reading_max < 2000 && reading_max < 5 * robot.getVel()){
-				printf("Obstacle: %f\n", reading);
+				printf("Obstacle: %f %f\n", reading_left, reading_right);
 				robot.stop();
 				waitForMove(robot);
 				obstacle = 1;
