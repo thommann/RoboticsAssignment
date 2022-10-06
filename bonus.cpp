@@ -142,10 +142,10 @@ int main(int argc, char **argv)
 		printf("Target Direction:\t%f\t%f\t%f\n", robot.getX(), robot.getY(), robot.getTh());
 
 		robot.move(distance);
-		ArUtil::sleep(500);
+		ArUtil::sleep(400);
 		while (true) {
-			double reading_left = sonar.cumulativeReadingPolar(-20, 0);
-			double reading_right = sonar.cumulativeReadingPolar(0, 20);
+			double reading_left = sonar.cumulativeReadingPolar(-30, 0);
+			double reading_right = sonar.cumulativeReadingPolar(0, 30);
 			double reading_max = max(reading_left, reading_right);
 			if(reading_max < 2000 && reading_max < 5 * robot.getVel()){
 				printf("Obstacle: %f %f\n", reading_left, reading_right);
