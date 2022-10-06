@@ -159,7 +159,7 @@ int main(int argc, char **argv)
 					robot.setDeltaHeading(-45);
 				}
 				waitForRot(robot);
-				robot.move(750);
+				robot.move(1000);
 				waitForMove(robot);
 				break;
 			}
