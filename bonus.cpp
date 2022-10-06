@@ -73,9 +73,9 @@ int main(int argc, char **argv)
 	robot.unlock();
 
 	// 4. Read the command sequence and execute it.
-	double initial_x = 5090;
-	double initial_y = 3580;
-	double initial_th = 3093.97;
+	double initial_x = 0;
+	double initial_y = 0;
+	double initial_th = 0;
 
 	ArPose initialPose(initial_x, initial_y, initial_th);
 	robot.moveTo(initialPose);
