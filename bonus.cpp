@@ -148,7 +148,7 @@ int main(int argc, char **argv)
 			double reading_right = sonar.cumulativeReadingPolar(0, 45);
 			double reading_max = max(reading_left, reading_right);
 			printf("Max Reading: %f\n", reading_max);
-			if(reading_max < 5000 && (reading_max < 500 || reading_max < 5 * robot.getVel())){
+			if(reading_max < 5000 && (reading_max < 200 || reading_max < 5 * robot.getVel())){
 				obstacle = 1;
 				printf("Obstacle: %f %f\n", reading_left, reading_right);
 				robot.stop();
@@ -159,7 +159,7 @@ int main(int argc, char **argv)
 					robot.setDeltaHeading(-90);
 				}
 				waitForRot(robot);
-				robot.move(1000);
+				robot.move(750);
 				waitForMove(robot);
 				break;
 			}
