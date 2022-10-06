@@ -154,9 +154,9 @@ int main(int argc, char **argv)
 				robot.stop();
 				waitForMove(robot);
 				if(reading_right > reading_left){
-					robot.setDeltaHeading(45);
+					robot.setDeltaHeading(90);
 				} else {
-					robot.setDeltaHeading(-45);
+					robot.setDeltaHeading(-90);
 				}
 				waitForRot(robot);
 				robot.move(750);
