@@ -112,13 +112,13 @@ int main(int argc, char **argv)
 			}
 
 			printf("Input doubles: %f %f %f\n", target_x, target_y, target_th);
+
+			target_x = target_x * 1000;
+			target_y = target_y * 1000;
+			target_th = radiansToDegrees(target_th);
 		}
 
 		obstacle = 0;
-
-		target_x = target_x * 1000;
-		target_y = target_y * 1000;
-		target_th = radiansToDegrees(target_th);
 
 		double current_x = robot.getX();
 		double current_y = robot.getY();
