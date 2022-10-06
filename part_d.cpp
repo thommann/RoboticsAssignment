@@ -6,6 +6,8 @@ int main(int argc, char **argv)
 {
 	// Setup
 	ArRobot robot;
+	ArSonarDevice sonar;
+	robot.addRangeDevice(&sonar);
 	Aria::init();
 	ArSimpleConnector connector(&argc,argv);
 	if (!connector.connectRobot(&robot)){
