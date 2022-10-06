@@ -142,8 +142,8 @@ int main(int argc, char **argv)
 		printf("Target Direction:\t%f\t%f\t%f\n", robot.getX(), robot.getY(), robot.getTh());
 
 		robot.move(distance);
+		ArUtil::sleep(500);
 		while (true) {
-			ArUtil::sleep(200);
 			double reading = sonar.cumulativeReadingPolar(-20, 20);
 			if(reading < 500){
 				printf("Obstacle: %f\n", reading);
@@ -157,6 +157,7 @@ int main(int argc, char **argv)
 				break;
 			}
 			if (robot.getVel() == 0) break;
+			ArUtil::sleep(200);
 		}
 		if (obstacle) continue;
 
