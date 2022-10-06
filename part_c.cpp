@@ -1,54 +1,29 @@
 
 #include "Aria.h"
-//#include "Aria/include/Aria.h"
 #include <cstdio>
 
 int main(int argc, char **argv)
 {
+	// Setup
 	ArRobot robot;
-	ArSonarDevice sonar;
-
-	robot.addRangeDevice(&sonar);
-
 	Aria::init();
-
 	ArSimpleConnector connector(&argc,argv);
-
 	if (!connector.connectRobot(&robot)){
 		printf("Could not connect to robot... exiting\n");
 		Aria::shutdown();
 		Aria::exit(1);
 	}
-
 	robot.comInt(ArCommands::ENABLE, 1);
-
 	robot.runAsync(false);
 
-	// Used to perform actions when keyboard keys are pressed
-	// ArKeyHandler keyHandler;
-	// Aria::setKeyHandler(&keyHandler);
+	// Start of controlling
 
-	// ArRobot contains an exit action for the Escape key. It also
-	// stores a pointer to the keyhandler so that other parts of the program can
-	// use the same keyhandler.
-	// robot.attachKeyHandler(&keyHandler);
-	// printf("You may press escape to exit\n");
-
-	// TODO: control the robot
-
-	// Start of controling
-
-	// 1. Lock the robot
+	// Initially do not move
 	robot.lock();
-
-	// 2. Write your control code here,
-	//    e.g. robot.setVel(150);
 	robot.setVel(0);
-
-	// 3. Unlock the robot
 	robot.unlock();
 
-	// 4. Read the command sequence and execute it.
+	// Print all possible commands
 	printf("You can type in your command. With pressing enter, the commands will be executed in order.\n");
 	printf("The commands are:\n");
 	printf("'w': accelerate\n");
@@ -58,6 +33,8 @@ int main(int argc, char **argv)
 	printf("' ': stop robot\n");
 	printf("'.': exit program\n");
 
+	// Listen for user input and act accordingly
+	// This infinite loop is a workaround because the keyhandler does not work on ARM/newer linux systems.
 	int c;
 	while(true){
 		c = getchar();
@@ -85,14 +62,13 @@ int main(int argc, char **argv)
 				break;
 		}
 		if(exit) break;
+
+		// Wait for the robot to execute the action
 		ArUtil::sleep(300);
 		printf("%f %f %f\n", robot.getX(), robot.getY(), robot.getTh());
 	}
-
-	// End of controling
-
+	// End of controlling
 
 	Aria::shutdown();
-
 	Aria::exit(0);
 }

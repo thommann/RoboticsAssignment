@@ -1,6 +1,5 @@
 
 #include "Aria.h"
-//#include "Aria/include/Aria.h"
 #include <cmath>
 #include <iostream>
 #include <cstdio>
@@ -16,71 +15,45 @@ double radiansToDegrees(double radians)
 
 int main(int argc, char **argv)
 {
+	// Setup
 	ArRobot robot;
 	ArSonarDevice sonar;
-
 	robot.addRangeDevice(&sonar);
-
 	Aria::init();
-
 	ArSimpleConnector connector(&argc,argv);
-
 	if (!connector.connectRobot(&robot)){
 		printf("Could not connect to robot... exiting\n");
 		Aria::shutdown();
 		Aria::exit(1);
 	}
-
 	robot.comInt(ArCommands::ENABLE, 1);
-
 	robot.runAsync(false);
 
-	// Used to perform actions when keyboard keys are pressed
-	// ArKeyHandler keyHandler;
-	// Aria::setKeyHandler(&keyHandler);
-
-	// ArRobot contains an exit action for the Escape key. It also
-	// stores a pointer to the keyhandler so that other parts of the program can
-	// use the same keyhandler.
-	// robot.attachKeyHandler(&keyHandler);
-	// printf("You may press escape to exit\n");
-
-
-	// Start of controling
-
-	// 1. Lock the robot
+	// Initially do not move
 	robot.lock();
-
-	// 2. Write your control code here,
-	//    e.g. robot.setVel(150);
 	robot.setVel(0);
-
-	// 3. Unlock the robot
 	robot.unlock();
 
-	// 4. Read the command sequence and execute it.
+	// Set the robots initial position
 	double initial_x = 5090;
 	double initial_y = 3580;
 	double initial_th = 3093.97;
-
 	ArPose initialPose(initial_x, initial_y, initial_th);
 	robot.moveTo(initialPose);
 
-
+	// Target coordinates and rotation
 	double target_x;
 	double target_y;
 	double target_th;
 
 	while(true) {
+		// Get user input
 		string input, coord;
-
 		printf("Input your target coordinates: ");
-
 		getline(cin, input);
 		printf("Input: %s\n", input.c_str());
-
+		// Split string
 		stringstream ss(input.c_str());
-
 		int i = 0;
 		while(getline(ss, coord, ' ')){
 			printf("Coord: %s\n", coord.c_str());
@@ -92,60 +65,69 @@ int main(int argc, char **argv)
 				target_th = atof(coord.c_str());
 			i++;
 		}
-
 		printf("Input doubles: %f %f %f\n", target_x, target_y, target_th);
 
+		// Calculate robot coordinates
 		target_x = target_x * 1000;
 		target_y = target_y * 1000;
 		target_th = radiansToDegrees(target_th);
 
+		// Current position
 		double current_x = robot.getX();
 		double current_y = robot.getY();
 
+		// Delta to target
 		double delta_x = target_x - current_x;
 		double delta_y = target_y - current_y;
 
+		// Angle and distance to target
 		double distance = sqrt(pow(delta_x, 2) + pow(delta_y, 2));
 		double angle_rad = atan2(delta_y, delta_x);
 		double angle = radiansToDegrees(angle_rad);
-
 		printf("Target:\n");
 		printf("\tDirection:\t%f\n", angle);
 		printf("\tDistance:\t%f\n", distance);
 
+		// Print start position and rotation
 		printf("Start:\t%f\t%f\t%f\n", robot.getX(), robot.getY(), robot.getTh());
 
+		// Set the heading to face target
 		robot.setHeading(angle);
 		ArUtil::sleep(500);
 		while (true) {
+			// Wait for rotation to finish
 			if (robot.getRotVel() == 0) break;
 			ArUtil::sleep(500);
 		}
 
+		// Print position and rotation after heading is set
 		printf("Target Direction:\t%f\t%f\t%f\n", robot.getX(), robot.getY(), robot.getTh());
 
+		// Move to target position
 		robot.move(distance);
 		ArUtil::sleep(500);
 		while (true) {
+			// Wait for movement to finish
 			if (robot.getVel() == 0) break;
 			ArUtil::sleep(500);
 		}
 
+		// Print position and rotation after reaching target position
 		printf("Final Position:\t%f\t%f\t%f\n", robot.getX(), robot.getY(), robot.getTh());
 
+		// Set final heading
 		robot.setHeading(target_th);
 		ArUtil::sleep(500);
 		while (true) {
+			// Wait for turning to finish
 			if (robot.getRotVel() == 0) break;
 			ArUtil::sleep(500);
 		}
 
+		// Print final position and heading
 		printf("Final Heading:\t%f\t%f\t%f\n", robot.getX(), robot.getY(), robot.getTh());
 	}
-
 	// End of controling
-
 	Aria::shutdown();
-
 	Aria::exit(0);
 }
