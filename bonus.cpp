@@ -144,13 +144,19 @@ int main(int argc, char **argv)
 		robot.move(distance);
 		ArUtil::sleep(500);
 		while (true) {
-			double reading = sonar.cumulativeReadingPolar(-20, 20);
-			if(reading < 2000 && reading < 5 * robot.getVel()){
+			double reading_left = sonar.cumulativeReadingPolar(-20, 0);
+			double reading_right = sonar.cumulativeReadingPolar(0, 20);
+			double reading_max = max(reading_left, reading_right);
+			if(reading_max < 2000 && reading_max < 5 * robot.getVel()){
 				printf("Obstacle: %f\n", reading);
 				robot.stop();
 				waitForMove(robot);
 				obstacle = 1;
-				robot.setDeltaHeading(90);
+				if(reading_right > reading_left){
+					robot.setDeltaHeading(45);
+				} else {
+					robot.setDeltaHeading(-45);
+				}
 				waitForRot(robot);
 				robot.move(500);
 				waitForMove(robot);
