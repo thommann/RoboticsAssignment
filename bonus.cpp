@@ -9,14 +9,14 @@
 
 using namespace std;
 
-void waitForRot(){
+void waitForRot(ArRobot &robot){
 	while (true) {
 		ArUtil::sleep(500);
 		if (robot.getRotVel() == 0) break;
 	}
 }
 
-void waitForMove(){
+void waitForMove(ArRobot &robot){
 	while (true) {
 		ArUtil::sleep(500);
 		if (robot.getVel() == 0) break;
@@ -137,7 +137,7 @@ int main(int argc, char **argv)
 		printf("Start:\t%f\t%f\t%f\n", robot.getX(), robot.getY(), robot.getTh());
 
 		robot.setHeading(angle);
-		waitForRot();
+		waitForRot(robot);
 
 		printf("Target Direction:\t%f\t%f\t%f\n", robot.getX(), robot.getY(), robot.getTh());
 
@@ -148,9 +148,9 @@ int main(int argc, char **argv)
 			if(reading < 500){
 				obstacle = 1;
 				robot.setDeltaHeading(45);
-				waitForRot();
+				waitForRot(robot);
 				robot.move(100);
-				waitForMove();
+				waitForMove(robot);
 				break;
 			}
 			if (robot.getVel() == 0) break;
@@ -160,7 +160,7 @@ int main(int argc, char **argv)
 		printf("Final Position:\t%f\t%f\t%f\n", robot.getX(), robot.getY(), robot.getTh());
 
 		robot.setHeading(target_th);
-		waitForRot();
+		waitForRot(robot);
 
 		printf("Final Heading:\t%f\t%f\t%f\n", robot.getX(), robot.getY(), robot.getTh());
 	}
