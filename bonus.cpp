@@ -145,7 +145,7 @@ int main(int argc, char **argv)
 		ArUtil::sleep(500);
 		while (true) {
 			double reading = sonar.cumulativeReadingPolar(-20, 20);
-			if(reading < 500){
+			if(reading < 1000){
 				printf("Obstacle: %f\n", reading);
 				robot.stop();
 				waitForMove(robot);
