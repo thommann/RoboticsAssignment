@@ -143,7 +143,7 @@ int main(int argc, char **argv)
 
 		robot.move(distance);
 		while (true) {
-			ArUtil::sleep(500);
+			ArUtil::sleep(200);
 			double reading = sonar.cumulativeReadingPolar(-20, 20);
 			if(reading < 500){
 				printf("Obstacle: %f\n", reading);
