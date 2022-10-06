@@ -144,8 +144,8 @@ int main(int argc, char **argv)
 		robot.move(distance);
 		ArUtil::sleep(500);
 		while (true) {
-			double reading_left = sonar.cumulativeReadingPolar(-30, 0);
-			double reading_right = sonar.cumulativeReadingPolar(0, 30);
+			double reading_left = sonar.cumulativeReadingPolar(-45, 0);
+			double reading_right = sonar.cumulativeReadingPolar(0, 45);
 			double reading_max = max(reading_left, reading_right);
 			printf("Max Reading: %f\n", reading_max);
 			if(reading_max < 5000 && (reading_max < 500 || reading_max < 5 * robot.getVel())){
