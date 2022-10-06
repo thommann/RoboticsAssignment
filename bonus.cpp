@@ -150,9 +150,9 @@ int main(int argc, char **argv)
 				robot.stop();
 				waitForMove(robot);
 				obstacle = 1;
-				robot.setDeltaHeading(45);
+				robot.setDeltaHeading(90);
 				waitForRot(robot);
-				robot.move(500);
+				robot.move(1000);
 				waitForMove(robot);
 				break;
 			}
