@@ -1,5 +1,6 @@
 .idea/workspace.xml
 .DS_Store
+*.asv
 
 # Prerequisites
 *.d
