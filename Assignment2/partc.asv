@@ -132,11 +132,11 @@ substitutes = [sin_1, sin_2, sin_3, sin_4, sin_5, ...
 EQ_sub = subs(EQ, [sines cosines], substitutes);
 EQ_sub
 
+EQ_trunc = EQ_sub(1:3, :);
 
 % Theta 5
 
-EQ_5 = EQ_sub(1:3, :);
-eq_5 = EQ_5(3, 1:2);
+eq_5 = EQ_trunc(3, 1:2);
 sol_5 = solve(eq_5, [sin_5, cos_5]);
 
 sol_5
@@ -147,7 +147,7 @@ sol_cos_5 = sol_5.c5;
 
 % Theta 1
 
-EQ_1 = subs(EQ_5, [sin_5, cos_5], [sol_sin_5, sol_cos_5]);
+EQ_1 = subs(EQ_trunc, [sin_5, cos_5], [sol_sin_5, sol_cos_5]);
 eq_1 = EQ_1(1:2, 4);
 sol_1 = solve(eq_1, [sin_1, cos_1]);
 
@@ -172,7 +172,7 @@ sol_cos_2 = sol_2.c2;
 % Theta 3
 
 EQ_3 = subs(EQ_2, [sin_2, cos_2], [sol_sin_2, sol_cos_2]);
-eq_3 = EQ_3(1:2, 1);
+eq_3 = EQ_3(3, 3:4);
 sol_3 = solve(eq_3, [sin_3, cos_3]);
 
 sol_3
@@ -184,7 +184,7 @@ sol_cos_3 = sol_3.c3;
 % Theta 4
 
 EQ_4 = subs(EQ_3, [sin_3, cos_3], [sol_sin_3, sol_cos_3]);
-eq_4 = EQ_4(3, 3:4);
+eq_4 = EQ_4(1:2, 2);
 sol_4 = solve(eq_4, [sin_4, cos_4]);
 
 sol_4
