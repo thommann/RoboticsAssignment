@@ -95,7 +95,9 @@ R
 
 
 % Substitute theta = 0 and psi = pi
-R_sub = subs(R, [sin(theta), cos(theta), sin(psi), cos(psi)], [0, 1, 0, -1]);
+R_sub = subs(R, ...
+             [sin(theta), cos(theta), sin(psi), cos(psi)], ...
+             [0, 1, 0, -1]);
 
 R_sub
 
@@ -109,6 +111,6 @@ H
 EQ = T_0_5 == H;
 EQ
 
-solution = solve(EQ, [sin_1, sin_2, sin_3, sin_4, sin_5, ...
-                      cos_1, cos_2, cos_3, cos_4, cos_5]);
-solution
+% solution = solve(EQ, [sin_1, sin_2, sin_3, sin_4, sin_5, ...
+%                       cos_1, cos_2, cos_3, cos_4, cos_5]);
+% solution
