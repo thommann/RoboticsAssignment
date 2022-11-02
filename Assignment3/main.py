@@ -3,6 +3,19 @@ import glob
 import cv2 as cv
 import numpy as np
 
+
+def undistort(_fname, _mtx, _dist):
+    _img = cv.imread(_fname)
+    h, w = _img.shape[:2]
+    new_camera_mtx, roi = cv.getOptimalNewCameraMatrix(_mtx, _dist, (w, h), 1, (w, h))
+    # undistort
+    dst = cv.undistort(_img, _mtx, _dist, None, new_camera_mtx)
+    # crop the image
+    x, y, w, h = roi
+    dst = dst[y:y + h, x:x + w]
+    cv.imwrite(f'undistorted/{_fname[:-4]}-undistorted.png', dst)
+
+
 # termination criteria
 criteria = (cv.TERM_CRITERIA_EPS + cv.TERM_CRITERIA_MAX_ITER, 30, 0.001)
 # prepare object points, like (0,0,0), (1,0,0), (2,0,0) ....,(6,5,0)
@@ -23,6 +36,7 @@ for gray in grays:
     ret, corners = cv.findChessboardCornersSB(gray, (8, 6), None)
     # If found, add object points, image points (after refining them)
     if ret:
+        print("SUCCESS")
         objpoints.append(objp)
         corners2 = cv.cornerSubPix(gray, corners, (11, 11), (-1, -1), criteria)
         imgpoints.append(corners2)
@@ -31,13 +45,10 @@ shape = grays[0].shape[::-1]
 
 ret, mtx, dist, rvecs, tvecs = cv.calibrateCamera(objpoints, imgpoints, shape, None, None)
 
-for fname in images + ["classroom.png"]:
-    img = cv.imread(fname)
-    h, w = img.shape[:2]
-    newcameramtx, roi = cv.getOptimalNewCameraMatrix(mtx, dist, (w, h), 1, (w, h))
-    # undistort
-    dst = cv.undistort(img, mtx, dist, None, newcameramtx)
-    # crop the image
-    x, y, w, h = roi
-    dst = dst[y:y + h, x:x + w]
-    cv.imwrite(f'{fname[:-4]}-undistorted.png', dst)
+for fname in images:
+    undistort(fname, mtx, dist)
+
+classroom = glob.glob('classroom.png')[0]
+undistort(classroom, mtx, dist)
+
+print("DONE")
