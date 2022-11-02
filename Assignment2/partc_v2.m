@@ -83,18 +83,13 @@ EQ = subs(EQ, c1^2 + s1^2, 1);
 EQ
 
 
-% Equate elements (2,4) from both sides:
-eq1 = EQ(2, 4);
-rho = sqrt(x^2 + y^2);
-theta1 = atan2(y, x) - atan2(d4, rho * sqrt(1-(d4/rho)^2));
-theta1
-
-
-% Equate elements (2,1) and (2, 2) from both sides:
-eq5 = EQ(2, 1:2);
-solution5 = solve(eq5, [s5, c5]);
-theta5 = atan2(solution5.s5, solution5.c5);
-theta5
+syms t1 t2 t3 t4 t5;
+EQ = subs(EQ, ...
+          [s1, s2, s3, s4, s5, c1, c2, c3, c4, c5], ...
+          [sin(t1), sin(t2), sin(t3), sin(t4), sin(t5), ...
+           cos(t1), cos(t2), cos(t3), cos(t4), cos(t5)]);
+solution = solve(EQ, [t1, t2, t3, t4, t5]);
+solution
 
 
 
@@ -104,8 +99,7 @@ theta5
 
 
 
-
-% solution = solve(EQ_1_5_sub, [s1, s2, s3, s4, s5, c1, c2, c3, c4, c5]);
+% solution = solve(EQ, [s1, s2, s3, s4, s5, c1, c2, c3, c4, c5]);
 % solution
 
 

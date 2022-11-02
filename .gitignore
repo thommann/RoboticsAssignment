@@ -1,6 +1,7 @@
 .idea/workspace.xml
 .DS_Store
 *.asv
+*-undistorted.png
 
 # Prerequisites
 *.d
