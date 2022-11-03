@@ -2,6 +2,8 @@
 .DS_Store
 *.asv
 *-undistorted.png
+*-corners.png
+*-uncropped.png
 
 # Prerequisites
 *.d
