@@ -4,13 +4,13 @@ import cv2 as cv
 import numpy as np
 
 
-def undistort(_file_name, _mtx, _dist, save_uncropped=False):
+def undistort(_file_name, _mtx, _dist, _save_uncropped=False):
     """
     Undistort the image with the given filename using the given camera parameters.
     :param _file_name: filename of the image
     :param _mtx: camera matrix
     :param _dist: distortion coefficients
-    :param save_uncropped: save uncropped image
+    :param _save_uncropped: save uncropped image
     :return: None
     """
     _img = cv.imread(_file_name)
@@ -18,7 +18,7 @@ def undistort(_file_name, _mtx, _dist, save_uncropped=False):
     new_camera_mtx, roi = cv.getOptimalNewCameraMatrix(_mtx, _dist, (w, h), 1, (w, h))
     dst = cv.undistort(_img, _mtx, _dist, None, new_camera_mtx)
 
-    if save_uncropped:
+    if _save_uncropped:
         cv.imwrite(f'undistorted/{_file_name[:-4]}-uncropped.png', dst)
 
     # Crop image
@@ -88,12 +88,12 @@ _, camera_matrix, distortion_coefficients, rotation_vectors, translation_vectors
 save_uncropped = True
 # Undistort checkerboard images
 for file_name in file_names:
-    undistort(file_name, camera_matrix, distortion_coefficients, save_uncropped=save_uncropped)
+    undistort(file_name, camera_matrix, distortion_coefficients, _save_uncropped=save_uncropped)
     save_uncropped = False
 
 # Undistort extra image
 extra_img = glob.glob(f'extra{SET}.png')[0]
-undistort(extra_img, camera_matrix, distortion_coefficients, save_uncropped=True)
+undistort(extra_img, camera_matrix, distortion_coefficients, _save_uncropped=True)
 
 # Print camera matrix and
 print(f"DONE -> MTX: {camera_matrix}, DIST: {distortion_coefficients}")
