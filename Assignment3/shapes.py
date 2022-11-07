@@ -1,9 +1,11 @@
-import numpy as np
-import cv2
-import os
 import argparse
+import os
+from math import atan2, degrees, tan
+
+import cv2
+import numpy as np
 from matplotlib import pyplot as plt
-from math import atan2, tan, degrees
+
 
 def main(args: argparse.Namespace):
     img = cv2.imread(args.input)
@@ -41,7 +43,7 @@ def main(args: argparse.Namespace):
 
         # Plot the centroid points and principle axis
         cv2.circle(img, (cX, cY), 2, (255, 0, 255), thickness=4)
-        plt.text(cX-100, cY-25, f"{cX}, {cY}, {degrees(phi):.1f}°", c=(1, 1, 1), backgroundcolor=(0, 0, 0))
+        plt.text(cX - 100, cY - 25, f"{cX}, {cY}, {degrees(phi):.1f}°", c=(1, 1, 1), backgroundcolor=(0, 0, 0))
         plt.plot(points[:, 0], points[:, 1], (0, 0, 0))
 
     plt.imshow(img)
@@ -49,6 +51,7 @@ def main(args: argparse.Namespace):
     base = os.path.basename(args.input)
     stem, ext = os.path.splitext(base)
     plt.savefig(f"{stem}_classified{ext}")
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Binary image thresholding.")

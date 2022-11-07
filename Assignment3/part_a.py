@@ -1,7 +1,60 @@
+import argparse
 import glob
 
 import cv2 as cv
 import numpy as np
+
+
+def main(_args: argparse.Namespace):
+    set_idx = _args.set
+    # Checkerboard grid
+    objp = np.zeros((6 * 8, 3), np.float32)
+    objp[:, :2] = np.mgrid[0:8, 0:6].T.reshape(-1, 2)
+
+    # Array of checkerboard grids
+    object_points = []
+    # Array of checkerboard corners found in distorted images
+    image_points = []
+    # Find all PNG files in folder
+    file_names = glob.glob(f'images{set_idx}/*.png')
+    # Save an image with found corners for the first image
+    draw_corners = True
+    # Find corners for all distorted images
+    for file_name in file_names:
+        # Find corners
+        ret, imgp = find_image_points(file_name, draw_image_points=draw_corners)
+        if ret:
+            # If corners are found, append to arrays
+            object_points.append(objp)
+            image_points.append(imgp)
+            # Draw corners only for first successful image
+            draw_corners = False
+
+    # Get camera parameters
+    shape = cv.imread(file_names[0]).shape[-2:-4:-1]
+    _, camera_matrix, distortion_coefficients, rotation_vectors, translation_vectors = cv.calibrateCamera(object_points,
+                                                                                                          image_points,
+                                                                                                          shape,
+                                                                                                          None,
+                                                                                                          None)
+
+    # Do not crop first image
+    save_uncropped = True
+    # Undistort checkerboard images
+    for file_name in file_names:
+        undistort(file_name, camera_matrix, distortion_coefficients, _save_uncropped=save_uncropped)
+        save_uncropped = False
+
+    # Undistort extra image
+    extra_img = glob.glob(f'extra{set_idx}.png')[0]
+    undistort(extra_img, camera_matrix, distortion_coefficients, _save_uncropped=True)
+
+    # Print camera matrix and
+    print()
+    print(f"Camera Matrix:\n{camera_matrix}")
+    print()
+    print(f"Distortion Coefficients:\n{distortion_coefficients}")
+    print()
 
 
 def undistort(_file_name, _mtx, _dist, _save_uncropped=False):
@@ -50,50 +103,9 @@ def find_image_points(_file_name, draw_image_points=False):
     return success, _imgp
 
 
-# Image Set
-SET = 2
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Camera Calibration.")
+    parser.add_argument("-s", "--set", help='Input images set (1 or 2)', default=2, required=False, type=int)
+    args = parser.parse_args()
 
-# Checkerboard grid
-objp = np.zeros((6 * 8, 3), np.float32)
-objp[:, :2] = np.mgrid[0:8, 0:6].T.reshape(-1, 2)
-
-# Array of checkerboard grids
-object_points = []
-# Array of checkerboard corners found in distorted images
-image_points = []
-# Find all PNG files in folder
-file_names = glob.glob(f'images{SET}/*.png')
-# Save an image with found corners for the first image
-draw_corners = True
-# Find corners for all distorted images
-for file_name in file_names:
-    # Find corners
-    ret, imgp = find_image_points(file_name, draw_image_points=draw_corners)
-    if ret:
-        # If corners are found, append to arrays
-        object_points.append(objp)
-        image_points.append(imgp)
-        # Draw corners only for first successful image
-        draw_corners = False
-
-# Get camera parameters
-shape = cv.imread(file_names[0]).shape[-2:-4:-1]
-_, camera_matrix, distortion_coefficients, rotation_vectors, translation_vectors = cv.calibrateCamera(object_points,
-                                                                                                      image_points,
-                                                                                                      shape,
-                                                                                                      None,
-                                                                                                      None)
-
-# Do not crop first image
-save_uncropped = True
-# Undistort checkerboard images
-for file_name in file_names:
-    undistort(file_name, camera_matrix, distortion_coefficients, _save_uncropped=save_uncropped)
-    save_uncropped = False
-
-# Undistort extra image
-extra_img = glob.glob(f'extra{SET}.png')[0]
-undistort(extra_img, camera_matrix, distortion_coefficients, _save_uncropped=True)
-
-# Print camera matrix and
-print(f"DONE -> MTX: {camera_matrix}, DIST: {distortion_coefficients}")
+    main(args)
