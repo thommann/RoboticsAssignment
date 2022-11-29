@@ -1,7 +1,6 @@
 import argparse
 import math as m
-import os
-from math import atan2, degrees, tan
+from math import atan2, tan
 from typing import List, Tuple
 
 import cv2
@@ -11,8 +10,8 @@ from scipy.spatial.transform import Rotation as R
 
 # Type definition
 Point2D = Tuple[float, float]
-Point3D = Tuple[float, float, float]    # (x, y, z)
-Frame2D = Tuple[float, float, float]    # (x, y, phi)
+Point3D = Tuple[float, float, float]  # (x, y, z)
+Frame2D = Tuple[float, float, float]  # (x, y, phi)
 Frame3D = Tuple
 
 # Measured at:
@@ -34,6 +33,7 @@ T = np.concatenate(
     (np.concatenate((rot, [[350], [350], [730]]), axis=1), [[0, 0, 0, 1]]), axis=0
 )
 
+
 # TODO: Maybe, we can split the modules as detector and controller.
 
 def rotate2D(phi: float) -> np.ndarray:
@@ -46,7 +46,7 @@ def rotate2D(phi: float) -> np.ndarray:
     )
 
 
-def principleLine(w: int, frame: Frame2D) -> Point2D:
+def principleLine(w: int, frame: Frame2D):
     cx, cy, phi = frame
 
     # y - cY = k(x - cX)
@@ -54,18 +54,18 @@ def principleLine(w: int, frame: Frame2D) -> Point2D:
     point1 = (0, -int(k * cx) + cy)
     point2 = (w, int(k * (w - cx) + cy))
 
-    return (point1, point2)
+    return point1, point2
 
 
-def detect(img: np.ndarray) -> List[Frame2D]:
+def detect(_img: np.ndarray) -> List[Frame2D]:
     """Detect objects based on binary thresholding method.
     Return the coordinate of central points (pixel) and principle angle (radian) in image frame.
     """
-    width, height = img.shape[1], img.shape[0]
+    height, width = _img.shape[:2]
     dim = (width, height)
 
-    img = cv2.resize(img, dim)
-    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    _img = cv2.resize(_img, dim)
+    gray = cv2.cvtColor(_img, cv2.COLOR_BGR2GRAY)
     blurred = cv2.GaussianBlur(gray, (5, 5), 0)
     _, thresh = cv2.threshold(blurred, 200, 255, cv2.THRESH_BINARY)
     contours, _ = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
@@ -88,6 +88,7 @@ def detect(img: np.ndarray) -> List[Frame2D]:
 
     return objects
 
+
 # Function for debugging.
 # To learn how the coordinate in 3D space maps to 2D space.
 def camera2img(points: Point3D) -> np.ndarray:
@@ -104,21 +105,24 @@ def camera2img(points: Point3D) -> np.ndarray:
 
     return p
 
+
 # Inverse function of camera2img
-def img2Camera(frame: Frame2D, z: float) -> np.ndarray:
+def img2camera(point: Point2D) -> np.ndarray:
     """Implements perspective transformation. (page 58, Lecture 6)
     """
     # FIXME:
     # I negated the denominator `f - z` but not sure whether it is correct.
     # (lambda - f) >= 0 in lecture notes but (lambda - f) < 0 here.
-    x, y = frame
+    x, y = point
+    z = arm_position[2]
     point_img = np.array([x, y, z / -(f - z), 1])
-    T = np.diag([1, 1, f, f / -(f - z)])
-    point_camera = (T @ point_img)
+    trans = np.diag([1, 1, f, f / -(f - z)])
+    point_camera = (trans @ point_img)
     point_camera /= point_camera[-1]
     point_camera = point_camera[:-1]
 
     return point_camera
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Binary thresholding detector.")
@@ -146,14 +150,14 @@ if __name__ == "__main__":
         # Magic that idkw:
         #  - shift (cx, cy) before rotating and translating from image frame to camera frame. .
         #  - Either +85 or -85 (camera offset in camera frame)
-        x, y, z = img2Camera((cx - 640, cy - 480), arm_position[2]).tolist()
-        x, y, z, _ = T @ np.array([x, y + 85, z, 1])
+        x_cam, y_cam = img2camera((cx - 640, cy - 480)).tolist()
+        x_world, y_world = (T @ np.array([x_cam, y_cam + 85, 0, 1]))[:2]
 
         # Plot the centroid points and principle axis
         cv2.circle(img, (int(cx), int(cy)), 2, (255, 0, 255), thickness=4)
         plt.plot(line[:, 0], line[:, 1], (0, 0, 0), linewidth=0.25)
         plt.text(
-            cx - 100, cy - 25, f"{idx}: {x:.0f}, {y:.0f}", #, {degrees(phi):.1f}°",
+            cx - 100, cy - 25, f"{idx}: {x_world:.0f}, {y_world:.0f}",  # , {degrees(phi):.1f}°",
             c=(1, 1, 1), backgroundcolor=(0, 0, 0)
         )
 
@@ -166,4 +170,3 @@ if __name__ == "__main__":
     plt.imshow(img)
     # plt.scatter(1280 - axis[:, 0], 960 - axis[:, 1])
     plt.show()
-

@@ -1,23 +1,16 @@
 #!/usr/bin/env python
-from datetime import datetime
-from turtle import shape
-
-from cv2 import rotate
-import rclpy
-import numpy as np
-from typing import List, Tuple
-
-import math as m
-from rclpy.node import Node
 
 import sys
+
+import numpy as np
+import rclpy
+from rclpy.node import Node
+
 sys.path.append('/home/robot/colcon_ws/install/tm_msgs/lib/python3.6/site-packages')
 from tm_msgs.msg import *
 from tm_msgs.srv import *
 
 from sensor_msgs.msg import Image
-from . import shapes
-from .shapes import rotate2D, img2Camera, T
 import cv2
 
 
@@ -25,29 +18,17 @@ class ImageSub(Node):
     def __init__(self, nodeName):
         super().__init__(nodeName)
         self.subscription = self.create_subscription(Image,
-        'techman_image', self.image_callback, 10)
+                                                     'techman_image', self.image_callback, 10)
         self.subscription
+        self.image_idx = 0
 
     def image_callback(self, data):
         self.get_logger().info('Received image')
 
         # TODO (write your code here)
         img = np.array(data.data).reshape(data.height, data.width, 3)
-        cv2.imwrite(f'TEST_IMG{datetime.now()}.png', img)
-        objs: List = shapes.detect(img)
-        self.get_logger().info(str(objs))
-
-        # TODO: Tune robot arm orientation (rz)
-        for object in objs:
-            x, y, z = img2Camera(object)
-            x, y, z, _ = T @ np.array([x, y + 85, z, 1])
-
-            self.get_logger().info(f"Target: {x}, {y}, {z}")
-
-            frame = f"{x:.0f}, {y:.0f}, 200, -180.00, 0.0, 135.00"
-            script_ptp = "PTP(\"CPP\"," + frame + ",100,200,0,false)"
-
-            send_script(script_ptp)
+        cv2.imwrite(f'IMG-{self.image_idx}.png', img)
+        self.image_idx += 1
 
 
 def send_script(script):
@@ -61,6 +42,7 @@ def send_script(script):
     move_cmd.script = script
     arm_cli.call_async(move_cmd)
     arm_node.destroy_node()
+
 
 def set_io(state):
     gripper_node = rclpy.create_node('gripper')
@@ -77,12 +59,14 @@ def set_io(state):
     gripper_cli.call_async(io_cmd)
     gripper_node.destroy_node()
 
+
 def main(args=None):
     rclpy.init(args=args)
     node = ImageSub('image_sub')
     rclpy.spin(node)
     node.destroy_node()
     rclpy.shutdown()
+
 
 if __name__ == '__main__':
     main()
