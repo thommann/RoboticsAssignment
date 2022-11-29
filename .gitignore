@@ -3,6 +3,7 @@
 *.asv
 *-undistorted.png
 *-corners.png
+corners-*.png
 *-uncropped.png
 
 # Prerequisites

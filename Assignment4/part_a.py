@@ -1,12 +1,10 @@
-import argparse
 import glob
 
 import cv2 as cv
 import numpy as np
 
 
-def main(_args: argparse.Namespace):
-    set_idx = _args.set
+def main():
     # Checkerboard grid
     objp = np.zeros((6 * 8, 3), np.float32)
     objp[:, :2] = np.mgrid[0:8, 0:6].T.reshape(-1, 2)
@@ -18,37 +16,23 @@ def main(_args: argparse.Namespace):
     # Find all PNG files in folder
     file_names = glob.glob(f'checker*.png')
     print(file_names)
-    # Save an image with found corners for the first image
-    draw_corners = True
     # Find corners for all distorted images
     for file_name in file_names:
         # Find corners
-        ret, imgp = find_image_points(file_name, draw_image_points=draw_corners)
+        ret, imgp = find_image_points(file_name, draw_image_points=True)
         if ret:
             # If corners are found, append to arrays
             object_points.append(objp)
             image_points.append(imgp)
-            # Draw corners only for first successful image
-            draw_corners = False
 
     # Get camera parameters
     shape = cv.imread(file_names[0]).shape[-2:-4:-1]
+    print(f"Shape: {shape}")
     _, camera_matrix, distortion_coefficients, rotation_vectors, translation_vectors = cv.calibrateCamera(object_points,
                                                                                                           image_points,
                                                                                                           shape,
                                                                                                           None,
                                                                                                           None)
-
-    # # Do not crop first image
-    # save_uncropped = True
-    # # Undistort checkerboard images
-    # for file_name in file_names:
-    #     undistort(file_name, camera_matrix, distortion_coefficients, _save_uncropped=save_uncropped)
-    #     save_uncropped = False
-
-    # # Undistort extra image
-    # extra_img = glob.glob(f'extra{set_idx}.png')[0]
-    # undistort(extra_img, camera_matrix, distortion_coefficients, _save_uncropped=True)
 
     # Print camera matrix and
     print()
@@ -58,27 +42,27 @@ def main(_args: argparse.Namespace):
     print()
 
 
-def undistort(_file_name, _mtx, _dist, _save_uncropped=False):
-    """
-    Undistort the image with the given filename using the given camera parameters.
-    :param _file_name: filename of the image
-    :param _mtx: camera matrix
-    :param _dist: distortion coefficients
-    :param _save_uncropped: save uncropped image
-    :return: None
-    """
-    _img = cv.imread(_file_name)
-    h, w = _img.shape[:2]
-    new_camera_mtx, roi = cv.getOptimalNewCameraMatrix(_mtx, _dist, (w, h), 1, (w, h))
-    dst = cv.undistort(_img, _mtx, _dist, None, new_camera_mtx)
-
-    # if _save_uncropped:
-    #     cv.imwrite(f'undistorted/{_file_name[:-4]}-uncropped.png', dst)
-
-    # Crop image
-    x, y, w, h = roi
-    dst = dst[y:y + h, x:x + w]
-    # cv.imwrite(f'undistorted/{_file_name[:-4]}-undistorted.png', dst)
+# def undistort(_file_name, _mtx, _dist, _save_uncropped=False):
+#     """
+#     Undistort the image with the given filename using the given camera parameters.
+#     :param _file_name: filename of the image
+#     :param _mtx: camera matrix
+#     :param _dist: distortion coefficients
+#     :param _save_uncropped: save uncropped image
+#     :return: None
+#     """
+#     _img = cv.imread(_file_name)
+#     h, w = _img.shape[:2]
+#     new_camera_mtx, roi = cv.getOptimalNewCameraMatrix(_mtx, _dist, (w, h), 1, (w, h))
+#     dst = cv.undistort(_img, _mtx, _dist, None, new_camera_mtx)
+#
+#     # if _save_uncropped:
+#     #     cv.imwrite(f'undistorted/{_file_name[:-4]}-uncropped.png', dst)
+#
+#     # Crop image
+#     x, y, w, h = roi
+#     dst = dst[y:y + h, x:x + w]
+#     # cv.imwrite(f'undistorted/{_file_name[:-4]}-undistorted.png', dst)
 
 
 def find_image_points(_file_name, draw_image_points=False):
@@ -98,17 +82,15 @@ def find_image_points(_file_name, draw_image_points=False):
                                 (11, 11),
                                 (-1, -1),
                                 (cv.TERM_CRITERIA_EPS + cv.TERM_CRITERIA_MAX_ITER, 30, 0.001))
+        if draw_image_points:
+            cv.drawChessboardCorners(image, (8, 6), _imgp, True)
+            cv.imwrite(f'corners-{_file_name[:-4]}.png', image)
+
     else:
         print('FAILED')
-        # if draw_image_points:
-        #     cv.drawChessboardCorners(image, (8, 6), _imgp, True)
-        #     cv.imwrite(f'{_file_name[:-4]}-corners.png', image)
+
     return success, _imgp
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Camera Calibration.")
-    parser.add_argument("-s", "--set", help='Input images set (1 or 2)', default=2, required=False, type=int)
-    args = parser.parse_args()
-
-    main(args)
+    main()
